@@ -1,5 +1,6 @@
 'use client'
 
+import { NextResponse } from 'next/server'
 import React, { useState } from 'react'
 import { useForm, SubmitHandler } from "react-hook-form"
 
@@ -11,13 +12,6 @@ type Inputs = {
     dob: string,
     number: string,
     salary: string
-}
-type studentInputs = {
-  nationalId: string,
-   name: string,
-   surname: string,
-   dob: string,
-   number: string,
 }
 
  function RegistrationForm() {
@@ -32,21 +26,26 @@ type studentInputs = {
       handleSubmit,
       watch,
       formState: { errors },
-    } = useForm<Inputs>()
+    } = useForm<Inputs>();
 
-      async function create(data: Inputs) {
-try {
-  fetch(`http://localhost:3000/api/${switchBtn === true ? 'student': 'teacher'}/create`, {
-    body: JSON.stringify(data),
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    method: 'POST'
-  }).then(() => setStudentFormData(initialStudentFormData)).then(() => setTeacherFormData(initialTeacherFormData));
-} catch (error) {
-  console.log(error);
-}
-}
+    async function create(formData: Inputs) {
+      try {
+       const res = await fetch(`http://localhost:3000/items/teacher`,  {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        })
+        const data = await res.json()
+        setTeacherFormData(initialTeacherFormData)
+        return NextResponse.json(data);
+        
+ 
+      } catch (error) {
+        console.log(error);
+      }
+      }
 
 const onSubmit: SubmitHandler<Inputs> = (data) => {
 try {

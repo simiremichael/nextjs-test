@@ -7,7 +7,7 @@ export default async function handler(
     res: NextApiResponse
 ) {
     const {nationalId, name, surname, dob, number} = req.body;
-console.log(req.body);
+
     try {
          await prisma.student.create({
             data: {

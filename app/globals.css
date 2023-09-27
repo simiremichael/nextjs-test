@@ -48,3 +48,11 @@ border-top-right-radius: 10px;
 .data-style {
   margin-left: 40%;
 }
+.delete-btn {
+  background-color: #B22222;
+  color: #ffffff;
+  font-size: 0.8rem;
+  padding: 2px 8px;
+  border-radius: 5px;
+  margin-left: 38%;
+}
